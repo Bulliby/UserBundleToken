@@ -1,0 +1,4 @@
+services:
+#    bulliby_user_token.example:
+#        class: Bulliby\UserTokenBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

@@ -4,6 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
+            "Bulliby\\UserTokenBundle\\": "src/Bulliby/UserTokenBundle",
             "AppBundle\\": "src/AppBundle"
         },
         "classmap": [
