@@ -38,6 +38,7 @@ class UserManager extends BaseManager
 
 	public function saveUser(User $user)
 	{
+        $user->setToken(md5(uniqid($user->getEmail(), true)));
 		$this->dispatcher->dispatch('user.create', new UserEvent($user));
 		$this->persistAndFlush($user);
 	}

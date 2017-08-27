@@ -17,14 +17,32 @@ class User extends UserBase
 {
     /**
      * @var string
-     *
+	 * @Assert\NotBlank()
+	 * @Assert\Regex(
+	 *  pattern="/^[a-zA-Z]+$/",
+	 *	match=true,
+	 *  message="Your name must contain only letters"
+	 * )
+	 * @Assert\Length(
+	 *  max = 20,
+	 *  maxMessage = "Your name cannot be longer than {{ limit }} characters"
+	 * )
      * @ORM\Column(name="name", type="string", length=20)
      */
     private $name;
 
     /**
      * @var string
-     *
+	 * @Assert\NotBlank
+	 * @Assert\Regex(
+	 *  pattern="/^[a-zA-Z]+$/",
+	 *  match=true,
+	 *  message="Your surname must contain only letters"
+	 * )
+	 * @Assert\Length(
+	 *  max = 20,
+	 *  maxMessage = "Your surname cannot be longer than {{ limit }} characters"
+	 * )
      * @ORM\Column(name="surname", type="string", length=20)
      */
     private $surname;
@@ -36,19 +54,36 @@ class User extends UserBase
      */
     private $birthday;
 
+
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=100, unique=true)
+	 * @Assert\Email(strict=true, checkMX=true)
+     * @ORM\Column(name="email", type="string", length=100, nullable=true, unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
+	 * @Assert\NotBlank
+	 * @Assert\Regex(
+	 *  pattern="/^[a-zA-Z]+$/",
+	 *  match=true,
+	 *  message="Your family name must contain only letters"
+	 * )
+	 * @Assert\Length(
+	 *  max = 20,
+	 *  maxMessage = "Your family name cannot be longer than {{ limit }} characters"
+	 * )
      * @ORM\Column(name="familly", type="string", length=20)
      */
     private $familly;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $token;
 
     /**
      * Set name
@@ -192,6 +227,29 @@ class User extends UserBase
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
     }
 }
 

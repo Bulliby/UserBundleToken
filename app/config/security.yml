@@ -1,24 +1,39 @@
 security:
-     providers:
-         custom_provider:
+    providers:
+        token:
             entity:
                 class: AppBundle:User
+                property: token
+        login:
+            entity:
+                class: AppBundle:User
+                property: email
 
-     encoders:
+    encoders:
          AppBundle\Entity\User:    
             algorithm: bcrypt
             cost: 12
 
-     firewalls:
+    firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: ~
-            form_login: 
-                login_path: user/login
-                check_path: user/login
+
+        default:
+            pattern: ^/api
+            provider: token
             guard:
                 authenticators:
-                     - bulliby.form_authenticator
+                    - Bulliby\UserTokenBundle\Security\TokenAuthenticator
 
+        login:
+            pattern: ^/
+            provider: login
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+
+
+    access_control:
+        - { path: ^/api, roles: ROLE_USER }
