@@ -33,3 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    bulliby.form_authenticator:
+        class: Bulliby\UserTokenBundle\Security\FormLoginAuthenticator
+        arguments: ["@router", "@security.password_encoder"]

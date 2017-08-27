@@ -1,7 +1,7 @@
 bulliby_user_token:
     resource: "@BullibyUserTokenBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /user
 
 app:
     resource: '@AppBundle/Controller/'
