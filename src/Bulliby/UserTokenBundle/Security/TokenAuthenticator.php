@@ -59,7 +59,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        var_dump('toto');
         $data = array(
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
 

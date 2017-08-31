@@ -23,7 +23,9 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface
 
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $this->em->findOneBy(array('token' => $apiKey));
+        //$apiKey = $this->em->findOneBy(array('token' => $apiKey));
+        $apiKey = $request->headers->get('X-AUTH-TOKEN');
+
 
         if (!$apiKey) {
             throw new BadCredentialsException();
@@ -38,15 +40,21 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface
 
     public function supportsToken(TokenInterface $token, $providerKey)
     {
-        return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
+        return $token instanceof PreAuthenticatedToken && 
+            $token->getProviderKey() === $providerKey;
     }
 
-    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
+    public function authenticateToken(
+        TokenInterface $token, 
+        UserProviderInterface $userProvider, 
+        $providerKey
+        )
     {
         if (!$userProvider instanceof ApiKeyUserProvider) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
+                    'The user provider must be an instance of\
+                        ApiKeyUserProvider (%s was given).',
                     get_class($userProvider)
                 )
             );
@@ -64,7 +72,6 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface
         }
 
         $user = $userProvider->loadUserByUsername($username);
-        die();
 
         return new PreAuthenticatedToken(
             $user,

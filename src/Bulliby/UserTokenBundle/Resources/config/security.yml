@@ -3,7 +3,7 @@ security:
         token:
             entity:
                 class: AppBundle:User
-                property: token
+                property: token #variable
         login:
             entity:
                 class: AppBundle:User
@@ -15,17 +15,12 @@ security:
             cost: 12
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        default:
-            pattern: ^/api
+        token:
+            pattern: ^/chat #variable
             provider: token
             guard:
                 authenticators:
                     - Bulliby\UserTokenBundle\Security\TokenAuthenticator
-
         login:
             pattern: ^/
             provider: login
@@ -33,7 +28,6 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-
-
-    access_control:
-        - { path: ^/api, roles: ROLE_USER }
+            guard:
+                authenticators:
+                    - Bulliby\UserBundle\Security\FormLoginAuthenticator
