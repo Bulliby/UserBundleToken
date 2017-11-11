@@ -18,7 +18,7 @@ class UserTokenNotificationListener extends UserNotificationListener
   public static function getSubscribedEvents()
   {
     return [
-      'user.create' => 'onUserCreate',
+      //'user.create' => 'onUserCreate', // Conflict with user bundle
       'user.logged' => 'onUserLogged',
     ];
   }
