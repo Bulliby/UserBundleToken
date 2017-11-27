@@ -1,4 +1,6 @@
-UserBundleToken
+UserTokenBundle
 ===============
 
-A Symfony project created on August 27, 2017, 8:36 am.
+A Symfony Bundle to use for API authentication.
+
+`php composer.phar require "bulliby/user-token-bundle" "dev-master"`
